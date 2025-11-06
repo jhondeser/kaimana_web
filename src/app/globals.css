@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --color-background: #F4C66E;
+  --color-text-primary: #3A2A0E;
+  --color-accent-primary: #137A6B;
+  --color-accent-secondary: #E68A00;
+  --color-highlight: #FFD15A;
+  --color-black: #000000;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
