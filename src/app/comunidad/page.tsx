@@ -8,7 +8,7 @@ export default function ComunidadPage() {
       {/* Hero Section para Comunidad */}
       <section style={{
         background: 'linear-gradient(135deg, var(--color-highlight) 0%, var(--color-accent-secondary) 100%)',
-        padding: '4rem 2rem',
+        padding: '7rem 2rem',
         textAlign: 'center',
         color: 'var(--color-text-primary)'
       }}>

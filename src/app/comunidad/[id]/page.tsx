@@ -86,8 +86,8 @@ export default function CommunityDetailPage({ params }: PageProps) {
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-      <nav style={{ padding: '2rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
-        <Link href="/comunidad" style={{ color: 'var(--color-highlight)', textDecoration: 'none' }}>
+      <nav style={{ padding: '6rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
+        <Link href="/comunidad" style={{ color: 'var(--color-accent-primary)', textDecoration: 'none' }}>
           ← Volver a Comunidad
         </Link>
       </nav>

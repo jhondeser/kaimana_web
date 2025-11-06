@@ -198,8 +198,9 @@ export default function ClassGrid() {
       
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', 
-        gap: '2rem'
+        gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))', 
+        gap: '2rem',
+        width: '100%'
       }}>
         {classes.map(classItem => (
           <ProductCard key={classItem.id} product={classItem} />

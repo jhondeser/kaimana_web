@@ -78,7 +78,7 @@ export default function ClassDetailPage({ params }: PageProps) {
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem' }}>
       {/* Navegación */}
-      <nav style={{ padding: '2rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
+      <nav style={{ padding: '6rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
         <Link href="/clases" style={{ color: 'var(--color-accent-primary)', textDecoration: 'none' }}>
           ← Volver a Clases
         </Link>

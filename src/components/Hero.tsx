@@ -2,9 +2,9 @@ export default function Hero() {
   return (
     <section style={{
       background: 'linear-gradient(135deg, var(--color-highlight) 0%, var(--color-accent-secondary) 100%)',
-      padding: '4rem 2rem',
+      padding: '7rem 2rem',
       textAlign: 'center',
-      color: 'var(--color-text-primary)'
+      color: 'var(--color-text-primary)',
     }}>
       <h1 style={{ 
         fontSize: '3.5rem', 

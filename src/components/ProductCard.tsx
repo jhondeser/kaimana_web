@@ -25,12 +25,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     }
   };
 
-  // Función getRoute que faltaba
   const getRoute = (type: string) => {
     switch (type) {
       case 'class': return 'clases';
       case 'experience': return 'experiencias';
       case 'trip': return 'excursiones';
+      case 'community': return 'comunidad';
       default: return 'clases';
     }
   };
@@ -44,7 +44,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         cursor: 'pointer',
-        position: 'relative'
+        position: 'relative',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
       }}>
         {/* Badge de tipo */}
         <div style={{
@@ -62,8 +65,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           {getTypeLabel(product.type)}
         </div>
 
-        {/* Imagen real */}
-        <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
+        {/* Imagen */}
+        <div style={{ 
+          position: 'relative', 
+          height: '200px', 
+          overflow: 'hidden',
+          flexShrink: 0
+        }}>
           <Image
             src={product.image}
             alt={product.title}
@@ -118,14 +126,23 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
 
-        {/* Contenido */}
-        <div style={{ padding: '1.5rem' }}>
+        {/* Contenido - Esta parte crece para ocupar el espacio disponible */}
+        <div style={{ 
+          padding: '1.5rem',
+          flex: '1',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           <h3 style={{ 
             marginBottom: '0.5rem',
             color: 'var(--color-text-primary)',
-            fontSize: '1.1rem',
-            minHeight: '3rem',
-            lineHeight: '1.3'
+            fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
+            lineHeight: '1.3',
+            minHeight: '2.6rem',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden'
           }}>
             {product.title}
           </h3>
@@ -134,7 +151,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div style={{ 
             display: 'flex',
             alignItems: 'center',
-            marginBottom: '1rem'
+            marginBottom: '1rem',
+            flexShrink: 0
           }}>
             <div style={{
               width: '32px',
@@ -147,42 +165,66 @@ export default function ProductCard({ product }: ProductCardProps) {
               marginRight: '0.5rem',
               fontSize: '0.8rem',
               fontWeight: 'bold',
-              color: 'var(--color-text-primary)'
+              color: 'var(--color-text-primary)',
+              flexShrink: 0
             }}>
               {product.instructor.split(' ').map(n => n[0]).join('')}
             </div>
             <span style={{ 
               fontSize: '0.9rem',
               color: 'var(--color-accent-primary)',
-              fontWeight: '500'
+              fontWeight: '500',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap'
             }}>
               {product.instructor}
             </span>
           </div>
 
-          {/* Detalles */}
+          {/* Detalles - Grid responsive */}
           <div style={{ 
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '0.5rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+            gap: '0.75rem',
             marginBottom: '1rem',
             fontSize: '0.85rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', color: 'var(--color-text-primary)' }}>
-              <span style={{ marginRight: '0.5rem', fontSize: '1rem' }}>🕒</span>
-              {product.duration}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              color: 'var(--color-text-primary)',
+              gap: '0.5rem'
+            }}>
+              <span style={{ fontSize: '1rem', flexShrink: 0 }}>🕒</span>
+              <span style={{ fontSize: '0.8rem' }}>{product.duration}</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', color: 'var(--color-text-primary)' }}>
-              <span style={{ marginRight: '0.5rem', fontSize: '1rem' }}>📅</span>
-              {product.schedule}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              color: 'var(--color-text-primary)',
+              gap: '0.5rem'
+            }}>
+              <span style={{ fontSize: '1rem', flexShrink: 0 }}>📅</span>
+              <span style={{ fontSize: '0.8rem' }}>{product.schedule.split(' ')[0]}</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', color: 'var(--color-text-primary)' }}>
-              <span style={{ marginRight: '0.5rem', fontSize: '1rem' }}>📍</span>
-              <span style={{ fontSize: '0.8rem' }}>{product.location}</span>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              color: 'var(--color-text-primary)',
+              gap: '0.5rem'
+            }}>
+              <span style={{ fontSize: '1rem', flexShrink: 0 }}>📍</span>
+              <span style={{ fontSize: '0.8rem' }}>{product.location.split(',')[0]}</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', color: 'var(--color-text-primary)' }}>
-              <span style={{ marginRight: '0.5rem', fontSize: '1rem' }}>⚡</span>
-              {product.level}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              color: 'var(--color-text-primary)',
+              gap: '0.5rem'
+            }}>
+              <span style={{ fontSize: '1rem', flexShrink: 0 }}>⚡</span>
+              <span style={{ fontSize: '0.8rem' }}>{product.level}</span>
             </div>
           </div>
 
@@ -193,23 +235,25 @@ export default function ProductCard({ product }: ProductCardProps) {
             alignItems: 'center',
             marginBottom: '1rem',
             paddingBottom: '1rem',
-            borderBottom: '1px solid #eee'
+            borderBottom: '1px solid #eee',
+            flexShrink: 0
           }}>
             <span style={{ 
               fontWeight: 'bold',
               color: 'var(--color-text-primary)',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.25rem'
+              gap: '0.25rem',
+              fontSize: '0.9rem'
             }}>
               <span style={{ color: 'var(--color-accent-secondary)' }}>★</span> 
-              {product.rating} ({product.reviews} reseñas)
+              {product.rating} ({product.reviews})
             </span>
           </div>
 
           {/* Incluye (solo para experiencias y trips) */}
-          {product.includes && (
-            <div style={{ marginBottom: '1rem' }}>
+          {product.includes && product.includes.length > 0 && (
+            <div style={{ marginBottom: '1rem', flexShrink: 0 }}>
               <div style={{ 
                 fontSize: '0.9rem',
                 fontWeight: 'bold',
@@ -222,13 +266,26 @@ export default function ProductCard({ product }: ProductCardProps) {
                 fontSize: '0.8rem',
                 paddingLeft: '1rem',
                 color: 'var(--color-text-primary)',
-                opacity: 0.8
+                opacity: 0.8,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.25rem'
               }}>
                 {product.includes.slice(0, 2).map((item, index) => (
-                  <li key={index}>{item}</li>
+                  <li key={index} style={{ 
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  }}>
+                    {item}
+                  </li>
                 ))}
                 {product.includes.length > 2 && (
-                  <li style={{ fontWeight: 'bold', color: 'var(--color-accent-primary)' }}>
+                  <li style={{ 
+                    fontWeight: 'bold', 
+                    color: 'var(--color-accent-primary)',
+                    fontSize: '0.75rem'
+                  }}>
                     +{product.includes.length - 2} más...
                   </li>
                 )}
@@ -236,11 +293,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
 
-          {/* Precio y botón */}
+          {/* Precio y botón - Esta parte va al final */}
           <div style={{ 
             display: 'flex', 
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            marginTop: 'auto',
+            flexShrink: 0
           }}>
             <div>
               <span style={{ 
@@ -265,11 +324,13 @@ export default function ProductCard({ product }: ProductCardProps) {
               backgroundColor: 'var(--color-accent-primary)',
               color: 'white',
               border: 'none',
-              padding: '0.75rem 1.5rem',
+              padding: '0.75rem 1rem',
               borderRadius: '25px',
               fontWeight: 'bold',
               cursor: 'pointer',
-              transition: 'all 0.3s'
+              transition: 'all 0.3s',
+              fontSize: '0.9rem',
+              whiteSpace: 'nowrap'
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--color-text-primary)';

@@ -8,7 +8,7 @@ export default function ExcursionesPage() {
       {/* Hero Section para Excursiones */}
       <section style={{
         background: 'linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-accent-primary) 100%)',
-        padding: '4rem 2rem',
+        padding: '7rem 2rem',
         textAlign: 'center',
         color: 'white'
       }}>

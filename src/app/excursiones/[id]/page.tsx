@@ -88,7 +88,7 @@ export default function TripDetailPage({ params }: PageProps) {
 
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem' }}>
-      <nav style={{ padding: '2rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
+      <nav style={{ padding: '6rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
         <Link href="/excursiones" style={{ color: 'var(--color-text-primary)', textDecoration: 'none' }}>
           ← Volver a Excursiones
         </Link>

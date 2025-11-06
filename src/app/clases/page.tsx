@@ -19,7 +19,7 @@ export default function ClasesPage() {
       {/* Hero Section para Clases */}
       <section style={{
         background: 'linear-gradient(135deg, var(--color-accent-primary) 0%, var(--color-highlight) 100%)',
-        padding: '4rem 2rem',
+        padding: '7rem 2rem',
         textAlign: 'center',
         color: 'white'
       }}>
