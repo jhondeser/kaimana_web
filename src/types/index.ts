@@ -25,6 +25,32 @@ export interface Product {
   languages: string[];
 }
 
+export interface Experience {
+  id: number;
+  title: string;
+  type: 'experience';
+  category: string;
+  price: number;
+  duration: string;
+  level: string;
+  schedule: string;
+  location: string;
+  image: string;
+  instructor: string;
+  rating: number;
+  reviews: number;
+  description: string;
+  highlights: string[];
+  images: string[];
+  whatYouWillDo: string[];
+  whatIsIncluded: string[];
+  requirements: string[];
+  meetingPoint: string;
+  groupSize: number;
+  languages: string[];
+  instructorBio?: string;
+}
+
 export interface CommunityEvent {
   id: number;
   title: string;
