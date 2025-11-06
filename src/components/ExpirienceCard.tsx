@@ -62,7 +62,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
           color: 'var(--color-accent-primary)',
           fontSize: '0.9rem'
         }}>
-          Anfitrión: {experience.host}
+          Anfitrión: {experience.instructor}
         </p>
         
         <div style={{ 
