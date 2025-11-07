@@ -1,69 +1,10 @@
 'use client';
 
-import React from 'react';
-import { use,} from 'react';
+import React, { useState, useEffect } from 'react';
+import { use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-
-// Datos de ejemplo - en un proyecto real esto vendría de una API
-const classData = {
-  id: 1,
-  title: "Clase de Slackline - Principiantes",
-  type: 'class',
-  category: 'slackline',
-  price: 15,
-  duration: "1.5 horas",
-  level: "Principiante",
-  schedule: "Lunes y Miércoles 18:00",
-  location: "Parque Central, Valencia",
-  image: "/images/classes/slackline-class.jpg",
-  instructor: "Carlos Rodríguez",
-  rating: 4.8,
-  reviews: 89,
-  description: "Aprende el arte del equilibrio en nuestra clase de slackline para principiantes. Una experiencia divertida y desafiante donde descubrirás cómo caminar sobre la cinta y mantener el balance en el hermoso entorno del Parque Central de Valencia.",
-  highlights: [
-    "Aprende técnicas básicas de equilibrio",
-    "Material profesional incluido",
-    "Grupos reducidos para atención personalizada",
-    "En plena naturaleza en el Parque Central",
-    "Perfecto para liberar estrés y conectar con tu cuerpo"
-  ],
-  images: [
-    "/images/classes/slackline-1.jpg",
-    "/images/classes/slackline-2.jpg",
-    "/images/classes/slackline-3.jpg",
-    "/images/classes/slackline-4.jpg",
-    "/images/classes/slackline-5.jpg"
-  ],
-  whatYouWillDo: [
-    "Calentamiento y estiramientos específicos para slackline",
-    "Técnicas básicas de equilibrio estático en la cinta",
-    "Primeros pasos en la cinta con apoyo del instructor",
-    "Ejercicios de confianza y superación personal",
-    "Juegos grupales para practicar lo aprendido de forma divertida"
-  ],
-  whatIsIncluded: [
-    "Slackline profesional de 5cm de ancho",
-    "Arnés de seguridad para principiantes",
-    "Instructor certificado con 5 años de experiencia",
-    "Seguro de responsabilidad civil",
-    "Agua mineral y fruta fresca para recuperar energía",
-    "Fotos y videos de tu progreso"
-  ],
-  requirements: [
-    "Ropa cómoda y deportiva que permita movimiento",
-    "Calzado deportivo o puedes practicar descalzo",
-    "Edad mínima: 8 años (menores con autorización)",
-    "No se requiere experiencia previa",
-    "Ganas de divertirse y aprender algo nuevo",
-    "Actitud positiva y mente abierta"
-  ],
-  meetingPoint: "Fuente principal del Parque Central de Valencia, junto al monumento circular",
-  groupSize: 8,
-  languages: ["Español", "Inglés", "Valenciano"],
-  instructorBio: "Carlos es instructor certificado de slackline con más de 5 años de experiencia. Apasionado por los deportes de equilibrio, ha enseñado a más de 500 personas a encontrar su balance tanto físico como mental. Su enfoque es paciente y divertido, adaptándose a cada estudiante."
-};
+import { getProductById } from '@/data/products';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -71,14 +12,38 @@ interface PageProps {
 
 export default function ClassDetailPage({ params }: PageProps) {
   const { id } = use(params);
-  const product = classData; // En realidad buscarías por ID
+  const product = getProductById(parseInt(id));
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  if (!product) {
+    return (
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem', textAlign: 'center', paddingTop: '4rem' }}>
+        <h1>Producto no encontrado</h1>
+        <Link href="/clases" style={{ color: 'var(--color-accent-primary)', textDecoration: 'none' }}>
+          ← Volver a Clases
+        </Link>
+      </div>
+    );
+  }
 
   const [mainImage, setMainImage] = React.useState(product.images[0]);
 
   return (
-    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem' }}>
+    <div style={{ padding: '4rem 1rem', maxWidth: '1400px', margin: '0 auto', }}>
       {/* Navegación */}
-      <nav style={{ padding: '6rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
+      <nav style={{ padding: '2rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
         <Link href="/clases" style={{ color: 'var(--color-accent-primary)', textDecoration: 'none' }}>
           ← Volver a Clases
         </Link>
@@ -86,10 +51,11 @@ export default function ClassDetailPage({ params }: PageProps) {
 
       {/* Galería de imágenes estilo Airbnb */}
       <section style={{ 
-        display: 'grid', 
-        gridTemplateColumns: '1fr 1fr', 
+        display: isMobile ? 'flex' : 'grid', 
+        gridTemplateColumns: isMobile ? 'none' : '1fr 1fr', 
+        flexDirection: isMobile ? 'column' : 'row',
         gap: '0.5rem',
-        height: '500px',
+        height: isMobile ? '900px' : '500px',
         borderRadius: '12px',
         overflow: 'hidden',
         marginBottom: '3rem'
@@ -106,10 +72,11 @@ export default function ClassDetailPage({ params }: PageProps) {
         
         {/* Grid de imágenes secundarias */}
         <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: '1fr 1fr', 
+          display: isMobile ? 'flex' : 'grid', 
+          gridTemplateColumns: isMobile ? 'none' : '1fr 1fr', 
+          flexDirection: isMobile ? 'column' : 'row',
           gap: '0.5rem',
-          height: '100%'
+          height: isMobile ? '100%' : '100%'
         }}>
           {product.images.slice(1, 5).map((image, index) => (
             <button
@@ -156,9 +123,10 @@ export default function ClassDetailPage({ params }: PageProps) {
 
       {/* Contenido principal */}
       <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: '2fr 1fr', 
-        gap: '4rem',
+        display: isMobile ? 'flex' : 'grid', 
+        gridTemplateColumns: isMobile ? 'none' : '2fr 1fr', 
+        flexDirection: isMobile ? 'column' : 'row',
+        gap: isMobile ? '2rem' : '4rem', // Menos gap en móvil
         alignItems: 'start'
       }}>
         {/* Columna izquierda - Información */}

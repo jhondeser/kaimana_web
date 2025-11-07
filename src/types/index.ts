@@ -23,6 +23,7 @@ export interface Product {
   meetingPoint: string;
   groupSize: number;
   languages: string[];
+  instructorBio: string;
 }
 
 export interface Experience {
