@@ -15,6 +15,22 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const checkScreenSize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  // Verificar al cargar
+  checkScreenSize();
+
+  // Escuchar cambios de tamaño
+  window.addEventListener('resize', checkScreenSize);
+  
+  // Limpiar event listener
+  return () => window.removeEventListener('resize', checkScreenSize);
+}, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -165,7 +181,7 @@ export default function Header() {
           </nav>
 
           {/* CTA Buttons Desktop */}
-          <div style={{ display: 'none', gap: '1rem', alignItems: 'center' }}>
+          <div style={{  display: isMobile ? 'none' : 'flex', gap: '1rem', alignItems: 'center' }}>
             <Link
               href="/login"
               className={`cta-outline ${isScrolled ? 'scrolled' : ''}`}

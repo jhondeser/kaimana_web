@@ -59,12 +59,39 @@ export default function Hero() {
           backgroundColor: 'var(--color-accent-primary)', 
           color: 'white', 
           border: 'none', 
-          padding: '1rem 2rem', 
+          padding: '1rem 1.5rem', 
           fontWeight: 'bold', 
           cursor: 'pointer',
-          transition: 'background-color 0.3s'
-        }}>
-          Explorar
+          transition: 'all 0.3s ease',
+          borderRadius: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.backgroundColor = 'var(--color-accent-secondary)';
+          e.currentTarget.style.transform = 'translateY(-2px)';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.backgroundColor = 'var(--color-accent-primary)';
+          e.currentTarget.style.transform = 'translateY(0)';
+        }}
+        >
+          <svg 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
         </button>
       </div>
     </section>
