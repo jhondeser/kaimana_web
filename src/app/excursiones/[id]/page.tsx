@@ -4,77 +4,7 @@ import { useState, useEffect } from 'react';
 import { use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-// Datos de ejemplo para excursiones (usando Chulilla)
-const tripData = {
-  id: 6,
-  title: "Excursión a las Cascadas de Chulilla - Aventura en la Naturaleza",
-  type: 'trip',
-  category: 'adventure',
-  price: 45,
-  duration: "Día completo",
-  level: "Moderado",
-  schedule: "Domingos 8:00",
-  location: "Chulilla, Valencia",
-  image: "/images/trips/chulilla-trip.jpg",
-  instructor: "David Fernández",
-  rating: 4.9,
-  reviews: 156,
-  description: "Descubre uno de los paisajes más espectaculares de la Comunidad Valenciana. Recorreremos el cañón del río Turia en Chulilla, donde las aguas turquesas y las cascadas naturales te harán sentir en un paraíso escondido. Una aventura perfecta para conectar con la naturaleza y disfrutar de vistas impresionantes.",
-  highlights: [
-    "Ruta por el espectacular cañón del río Turia",
-    "Baño en pozas naturales de aguas cristalinas",
-    "Vistas panorámicas desde los miradores",
-    "Puentes colgantes y pasarelas sobre el río",
-    "Flora y fauna autóctona de la zona",
-    "Fotos profesionales del paisaje"
-  ],
-  images: [
-    "/images/trips/chulilla-1.jpg",
-    "/images/trips/chulilla-2.jpg",
-    "/images/trips/chulilla-3.jpg",
-    "/images/trips/chulilla-4.jpg",
-    "/images/trips/chulilla-5.jpg"
-  ],
-  whatYouWillDo: [
-    "Encuentro en punto de recogida y presentación del grupo",
-    "Traslado en furgoneta equipada hasta Chulilla",
-    "Inicio de ruta con briefing de seguridad y normas",
-    "Descenso por el cañón admirando las formaciones rocosas",
-    "Parada en las principales cascadas para fotos y baño",
-    "Cruce de puentes colgantes sobre el río Turia",
-    "Almuerzo picnic en mirador con vistas panorámicas",
-    "Tiempo libre para nadar en las pozas naturales",
-    "Regreso por ruta alternativa con diferentes perspectivas",
-    "Vuelta a Valencia compartiendo experiencias"
-  ],
-  whatIsIncluded: [
-    "Transporte ida y vuelta desde Valencia en furgoneta climatizada",
-    "Guía de montaña certificado UIAGM",
-    "Seguro de accidentes y responsabilidad civil",
-    "Picnic saludable: sándwiches, fruta, frutos secos y agua",
-    "Chaleco salvavidas para zonas de baño profundas",
-    "Botiquín de primeros auxilios completo",
-    "Sesión fotográfica con cámara profesional",
-    "Mapa de la ruta de recuerdo",
-    "Snacks energéticos para el camino"
-  ],
-  requirements: [
-    "Calzado de trekking impermeable o deportivo con buena suela",
-    "Ropa cómoda y bañador debajo",
-    "Toalla y muda de ropa seca",
-    "Protección solar y gorra",
-    "Mochila pequeña para objetos personales",
-    "Botella de agua reutilizable (podemos rellenar)",
-    "Edad mínima: 12 años (con acompañante)",
-    "Condición física moderada (caminata de 4-5 horas)",
-    "Saber nadar (para zonas de baño)"
-  ],
-  meetingPoint: "Plaza de toros de Valencia - Aparcamiento principal",
-  groupSize: 12,
-  languages: ["Español", "Inglés", "Valenciano"],
-  instructorBio: "David es guía de montaña certificado con más de 10 años de experiencia en rutas por la Comunidad Valenciana. Especialista en geología y ecología local, te contará todos los secretos del cañón de Chulilla. Apasionado por la fotografía de naturaleza, asegurará que te lleves recuerdos increíbles de esta aventura."
-};
+import { getProductById } from '@/data/products';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -82,9 +12,9 @@ interface PageProps {
 
 export default function TripDetailPage({ params }: PageProps) {
   const { id } = use(params);
-  const product = tripData;
+  const product = getProductById(parseInt(id));
 
-  const [mainImage, setMainImage] = useState(product.images[0]);
+  const [mainImage, setMainImage] = useState(product?.images[0] || '');
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -98,9 +28,20 @@ export default function TripDetailPage({ params }: PageProps) {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
+  if (!product) {
+    return (
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem', textAlign: 'center', paddingTop: '4rem' }}>
+        <h1>Excursión no encontrada</h1>
+        <Link href="/excursiones" style={{ color: 'var(--color-text-primary)', textDecoration: 'none' }}>
+          ← Volver a Excursiones
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem' }}>
-      <nav style={{ padding: isMobile ? '4rem 0' : '6rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
+      <nav style={{ padding: isMobile ? '6rem 0' : '6rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
         <Link href="/excursiones" style={{ color: 'var(--color-text-primary)', textDecoration: 'none' }}>
           ← Volver a Excursiones
         </Link>

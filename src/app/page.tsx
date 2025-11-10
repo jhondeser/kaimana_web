@@ -9,7 +9,7 @@ import ClassGrid from '../components/ClassGrid';
 import ExperienceGrid from '../components/ExperienceGrid';
 import TripGrid from '../components/TripGrid';
 import CommunityGrid from '../components/CommunityGrid';
-import Footer from '../components/Footer';
+
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<'classes' | 'experiences' | 'trips' | 'community'>('classes');

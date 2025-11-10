@@ -99,7 +99,7 @@ export default function ExperienceDetailPage({ params }: PageProps) {
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem' }}>
       {/* Navegación */}
-      <nav style={{ padding: isMobile ? '4rem 0' : '6rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
+      <nav style={{ padding: isMobile ? '6rem 0' : '6rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
         <Link href="/experiencias" style={{ color: 'var(--color-accent-secondary)', textDecoration: 'none' }}>
           ← Volver a Experiencias
         </Link>

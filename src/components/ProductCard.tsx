@@ -47,7 +47,8 @@ export default function ProductCard({ product }: ProductCardProps) {
         position: 'relative',
         height: '100%',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        width: '100%'
       }}>
         {/* Badge de tipo */}
         <div style={{
